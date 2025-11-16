@@ -247,7 +247,7 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             {/* Solar Power with History */}
             <div className="space-y-2">
-              <AreaChartComponent title="SOLAR POWER" data={solarData} height={250} />
+              <AreaChartComponent title="SOLAR POWER (kW)" data={solarData} height={250} />
               <div className="flex gap-2">
                 <HoverCard openDelay={200}>
                   <HoverCardTrigger asChild>
@@ -274,7 +274,7 @@ const Index = () => {
 
             {/* Wind Power with History */}
             <div className="space-y-2">
-              <AreaChartComponent title="WIND POWER" data={windData} height={250} />
+              <AreaChartComponent title="WIND POWER (kW)" data={windData} height={250} />
               <div className="flex gap-2">
                 <HoverCard openDelay={200}>
                   <HoverCardTrigger asChild>
