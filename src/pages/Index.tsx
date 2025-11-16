@@ -154,7 +154,9 @@ const Index = () => {
                 <HoverCard openDelay={200}>
                   <HoverCardTrigger asChild>
                     <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
-                      <p className="text-xs font-medium text-center text-muted-foreground">Power Limits & SOC Bounds</p>
+                      <p className="text-xs font-medium text-center text-muted-foreground">
+                        Power Limits & SOC Bounds & Ramp Rate
+                      </p>
                     </Card>
                   </HoverCardTrigger>
                   <HoverCardContent className="w-96 p-4" side="bottom">
