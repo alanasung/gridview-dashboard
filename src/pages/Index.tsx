@@ -345,41 +345,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-        </>
-      )}
-
-      {/* Demand Dashboard */}
-      {dashboardMode === "demand" && (
-        <>
-          {/* Energy Breakdown and Water */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-            <div className="md:col-span-1 lg:col-span-2">
-              <EnergyBreakdown
-                title="ENERGY USAGE"
-                total={372}
-                unit="MW"
-                items={[
-                  { name: "Building", value: 124, unit: "MW", percentage: 46.83, color: "bg-primary" },
-                  { name: "DC Chargers", value: 124, unit: "MW", percentage: 22.34, color: "bg-secondary" },
-                  { name: "AC Chargers", value: 124, unit: "MW", percentage: 21.34, color: "bg-chart-3" },
-                  { name: "Battery Storage", value: 1, unit: "MW", percentage: 0.3, color: "bg-chart-4" },
-                ]}
-              />
-            </div>
-            <StatsCard
-              title="WATER"
-              subtitle="Usage last hour"
-              value="150"
-              unit="m3/h"
-              indicator="green"
-              details={[
-                { label: "Daily Total", value: "124 M3" },
-                { label: "Month To Date", value: "124 M3" },
-                { label: "Year To Date", value: "124 M3" },
-                { label: "Total", value: "124 M3" },
-              ]}
-            />
-          </div>
 
           {/* Demand Response Card */}
           <div className="mb-4">
@@ -449,6 +414,41 @@ const Index = () => {
                 </div>
               </div>
             </Card>
+          </div>
+        </>
+      )}
+
+      {/* Demand Dashboard */}
+      {dashboardMode === "demand" && (
+        <>
+          {/* Energy Breakdown and Water */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <div className="md:col-span-1 lg:col-span-2">
+              <EnergyBreakdown
+                title="ENERGY USAGE"
+                total={372}
+                unit="MW"
+                items={[
+                  { name: "Building", value: 124, unit: "MW", percentage: 46.83, color: "bg-primary" },
+                  { name: "DC Chargers", value: 124, unit: "MW", percentage: 22.34, color: "bg-secondary" },
+                  { name: "AC Chargers", value: 124, unit: "MW", percentage: 21.34, color: "bg-chart-3" },
+                  { name: "Battery Storage", value: 1, unit: "MW", percentage: 0.3, color: "bg-chart-4" },
+                ]}
+              />
+            </div>
+            <StatsCard
+              title="WATER"
+              subtitle="Usage last hour"
+              value="150"
+              unit="m3/h"
+              indicator="green"
+              details={[
+                { label: "Daily Total", value: "124 M3" },
+                { label: "Month To Date", value: "124 M3" },
+                { label: "Year To Date", value: "124 M3" },
+                { label: "Total", value: "124 M3" },
+              ]}
+            />
           </div>
         </>
       )}
