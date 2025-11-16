@@ -102,6 +102,12 @@ const Index = () => {
   const [drTimeRemaining] = useState("1h 22m");
   const [drReduction] = useState("2.5");
 
+  // Curtailment state
+  const [curtailmentPercentage] = useState(12);
+  const [solarCurtailed] = useState(10.3);
+  const [windCurtailed] = useState(2.1);
+  const [curtailmentIncidents] = useState(4);
+
   return (
     <div className="min-h-screen bg-background p-4 md:p-8 animate-fade-in">
       {/* Header */}
@@ -410,6 +416,43 @@ const Index = () => {
                       <div className="w-2 h-2 rounded-full bg-destructive" />
                       <span className="text-muted-foreground">Active</span>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          {/* Curtailment Status Card */}
+          <div className="mb-4">
+            <Card className="p-6 border-border bg-card">
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold mb-1">Curtailment Status</h3>
+                <p className="text-sm text-muted-foreground">Renewable Curtailment: {curtailmentPercentage}% (Today)</p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Solar Curtailed</p>
+                    <div className="flex items-baseline gap-2">
+                      <p className="text-3xl font-bold text-foreground">{solarCurtailed}</p>
+                      <p className="text-lg text-muted-foreground">MWh</p>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Wind Curtailed</p>
+                    <div className="flex items-baseline gap-2">
+                      <p className="text-3xl font-bold text-foreground">{windCurtailed}</p>
+                      <p className="text-lg text-muted-foreground">MWh</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-border">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Incidents</span>
+                    <span className="text-2xl font-bold text-foreground">{curtailmentIncidents}</span>
                   </div>
                 </div>
               </div>
