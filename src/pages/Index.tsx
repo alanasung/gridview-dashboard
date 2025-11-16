@@ -108,6 +108,40 @@ const Index = () => {
   const [windCurtailed] = useState(2.1);
   const [curtailmentIncidents] = useState(4);
 
+  // Solar historical data
+  const [solar7DaysData] = useState(() => 
+    Array.from({ length: 7 * 24 }, (_, i) => ({
+      time: `Day ${Math.floor(i / 24) + 1}`,
+      value: Math.sin(i / 12) * 2000 + 1500,
+      value2: Math.sin(i / 12) * 1500 + 1000,
+    }))
+  );
+
+  const [solar30DaysData] = useState(() =>
+    Array.from({ length: 30 }, (_, i) => ({
+      time: `${i + 1}`,
+      value: Math.sin(i / 5) * 2000 + 1500,
+      value2: Math.sin(i / 5) * 1500 + 1000,
+    }))
+  );
+
+  // Wind historical data
+  const [wind7DaysData] = useState(() => 
+    Array.from({ length: 7 * 24 }, (_, i) => ({
+      time: `Day ${Math.floor(i / 24) + 1}`,
+      value: Math.sin(i / 12) * 1800 + 1200,
+      value2: Math.sin(i / 12) * 1300 + 900,
+    }))
+  );
+
+  const [wind30DaysData] = useState(() =>
+    Array.from({ length: 30 }, (_, i) => ({
+      time: `${i + 1}`,
+      value: Math.sin(i / 5) * 1800 + 1200,
+      value2: Math.sin(i / 5) * 1300 + 900,
+    }))
+  );
+
   return (
     <div className="min-h-screen bg-background p-4 md:p-8 animate-fade-in">
       {/* Header */}
