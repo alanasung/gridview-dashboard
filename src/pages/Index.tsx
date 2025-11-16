@@ -27,6 +27,12 @@ const Index = () => {
     value2: Math.sin(i / 3.8) * 1500 + 1000,
   }));
 
+  const windData = Array.from({ length: 24 }, (_, i) => ({
+    time: `${i}:00`,
+    value: Math.sin(i / 4.2) * 1800 + 1200,
+    value2: Math.sin(i / 4.2) * 1300 + 900,
+  }));
+
   const pricingData = Array.from({ length: 24 }, (_, i) => ({
     time: `${i}:00`,
     value: Math.random() * 200 + 100,
@@ -62,58 +68,18 @@ const Index = () => {
       {/* Supply Dashboard */}
       {dashboardMode === 'supply' && (
         <>
-          {/* Energy Production Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <StatsCard
-              title="TOTAL GREEN ENERGY"
-              subtitle="50% Of Max. Capacity"
-              value="2"
-              unit="MW"
-              indicator="green"
-              details={[
-                { label: "Daily Total", value: "124 MWh" },
-                { label: "Month To Date", value: "124 MWh" },
-                { label: "Year To Date", value: "124 MWh" },
-                { label: "Total", value: "124 MWh" },
-              ]}
-            />
-            <StatsCard
-              title="SOLAR ENERGY"
-              subtitle="Solar Energy Generated"
-              value="2"
-              unit="MW"
-              indicator="green"
-              details={[
-                { label: "Daily Total", value: "124 MWh" },
-                { label: "Month To Date", value: "124 MWh" },
-                { label: "Year To Date", value: "124 MWh" },
-                { label: "Total", value: "124 MWh" },
-              ]}
-            />
-            <StatsCard
-              title="WIND ENERGY"
-              subtitle="Wind Energy Generated"
-              value="2"
-              unit="MW"
-              indicator="green"
-              details={[
-                { label: "Daily Total", value: "124 MWh" },
-                { label: "Month To Date", value: "124 MWh" },
-                { label: "Year To Date", value: "124 MWh" },
-                { label: "Total", value: "124 MWh" },
-              ]}
-            />
-          </div>
-
           {/* Charts Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-            <div className="md:col-span-2">
-              <AreaChartComponent
-                title="SOLAR POWER"
-                data={solarData}
-                height={250}
-              />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+            <AreaChartComponent
+              title="SOLAR POWER"
+              data={solarData}
+              height={250}
+            />
+            <AreaChartComponent
+              title="WIND POWER"
+              data={windData}
+              height={250}
+            />
             <CircularGauge
               title="TOTAL BATTERY"
               value={Math.round(batteryLevel)}
