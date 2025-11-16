@@ -632,6 +632,550 @@ const Index = () => {
               ]}
             />
           </div>
+
+          {/* Industrial Load & Load Split */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <div>
+                  <StatsCard
+                    title="INDUSTRIAL LOAD"
+                    subtitle="Current demand"
+                    value="8.4"
+                    unit="MW"
+                    indicator="green"
+                    details={[
+                      { label: "Peak Today", value: "9.2 MW" },
+                      { label: "Average Today", value: "7.8 MW" },
+                      { label: "Forecast Next Hr", value: "8.6 MW" },
+                    ]}
+                  />
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <AreaChartComponent 
+                  title="LOAD FORECAST (24H)" 
+                  data={loadForecastData} 
+                  height={200} 
+                />
+              </HoverCardContent>
+            </HoverCard>
+
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <div>
+                  <Card className="p-6 border-border bg-card cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-sm text-muted-foreground mb-4">LOAD SPLIT</p>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Critical Load</span>
+                        <span className="text-sm font-bold text-destructive">5.2 MW (62%)</span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2">
+                        <div className="bg-destructive h-2 rounded-full" style={{ width: '62%' }} />
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Flexible Load</span>
+                        <span className="text-sm font-bold text-primary">3.2 MW (38%)</span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2">
+                        <div className="bg-primary h-2 rounded-full" style={{ width: '38%' }} />
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <BarChartComponent 
+                  title="CRITICAL VS FLEXIBLE (24H)" 
+                  data={Array.from({ length: 24 }, (_, i) => ({
+                    time: `${i}:00`,
+                    value: Math.sin(i / 3.5) * 90 + 220,
+                    value2: Math.sin(i / 3.5) * 60 + 130,
+                  }))}
+                  height={200}
+                />
+              </HoverCardContent>
+            </HoverCard>
+
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <div>
+                  <Card className="p-6 border-border bg-card cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-sm text-muted-foreground mb-4">SHIFT SCHEDULE</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Current Shift</span>
+                        <Badge variant="default">Day Shift</Badge>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Production Level</span>
+                        <span className="text-sm font-bold text-primary">85%</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Next Shift</span>
+                        <span className="text-xs text-foreground">18:00 (4h 15m)</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Staff Count</span>
+                        <span className="text-xs text-foreground">42 workers</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <BarChartComponent 
+                  title="PRODUCTION LEVEL BY HOUR" 
+                  data={Array.from({ length: 24 }, (_, i) => ({
+                    time: `${i}:00`,
+                    value: i >= 6 && i <= 14 ? 85 : i >= 14 && i <= 22 ? 75 : 30,
+                    value2: 0,
+                  }))}
+                  height={200}
+                />
+              </HoverCardContent>
+            </HoverCard>
+
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <div>
+                  <Card className="p-6 border-border bg-card cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-sm text-muted-foreground mb-4">LOAD SOURCE MIX</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Renewables</span>
+                        <span className="text-sm font-bold text-primary">4.2 MW (50%)</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Battery</span>
+                        <span className="text-sm font-bold text-secondary">1.8 MW (21%)</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Grid</span>
+                        <span className="text-sm font-bold text-chart-3">2.1 MW (25%)</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Other Storage</span>
+                        <span className="text-sm font-bold text-chart-4">0.3 MW (4%)</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <AreaChartComponent 
+                  title="ENERGY SOURCE MIX (24H)" 
+                  data={Array.from({ length: 24 }, (_, i) => ({
+                    time: `${i}:00`,
+                    value: Math.sin(i / 3.8) * 150 + 200,
+                    value2: Math.sin(i / 4.2) * 80 + 100,
+                  }))}
+                  height={200}
+                />
+              </HoverCardContent>
+            </HoverCard>
+          </div>
+
+          {/* DR Actions & Battery Interaction */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <div>
+                  <Card className="p-6 border-border bg-card cursor-pointer hover:bg-accent/50 transition-colors">
+                    <div className="flex items-start justify-between mb-4">
+                      <p className="text-sm text-muted-foreground">DR ACTIONS</p>
+                      <Badge variant="destructive">Active</Badge>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Curtailment Amount</span>
+                        <span className="text-sm font-bold text-destructive">{drReduction} MW</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Event Duration</span>
+                        <span className="text-xs text-foreground">{drTimeRemaining}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Load Shift Window</span>
+                        <span className="text-xs text-foreground">18:00 - 22:00</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Recommended Action</span>
+                        <span className="text-xs text-primary">Shift 1.2 MW</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <AreaChartComponent 
+                  title="DR EVENT TIMELINE" 
+                  data={Array.from({ length: 24 }, (_, i) => ({
+                    time: `${i}:00`,
+                    value: i >= 14 && i <= 18 ? 350 - 25 : 350,
+                    value2: 350,
+                  }))}
+                  height={200}
+                />
+              </HoverCardContent>
+            </HoverCard>
+
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <div>
+                  <Card className="p-6 border-border bg-card cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-sm text-muted-foreground mb-4">BATTERY INTERACTION</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Charge Power</span>
+                        <span className="text-sm font-bold text-primary">1.2 MW</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Discharge Power</span>
+                        <span className="text-sm font-bold text-secondary">0.0 MW</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Net Power</span>
+                        <span className="text-sm font-bold text-primary">+1.2 MW</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Status</span>
+                        <Badge variant="default">Charging</Badge>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <AreaChartComponent 
+                  title="CHARGE/DISCHARGE POWER (24H)" 
+                  data={Array.from({ length: 24 }, (_, i) => ({
+                    time: `${i}:00`,
+                    value: Math.sin(i / 3.8) * 60 + 70,
+                    value2: Math.sin(i / 4.2) * 50 + 60,
+                  }))}
+                  height={200}
+                />
+              </HoverCardContent>
+            </HoverCard>
+
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <div>
+                  <StatsCard
+                    title="BATTERY SOC & TEMP"
+                    subtitle="State of charge"
+                    value={Math.round(batteryLevel)}
+                    unit="%"
+                    indicator="green"
+                    details={[
+                      { label: "Temperature", value: "28°C" },
+                      { label: "Voltage", value: "750 V" },
+                      { label: "Current", value: "1.6 A" },
+                    ]}
+                  />
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <AreaChartComponent 
+                  title="BATTERY SOC HISTORY (24H)" 
+                  data={Array.from({ length: 24 }, (_, i) => ({
+                    time: `${i}:00`,
+                    value: Math.sin(i / 4) * 20 + 70,
+                    value2: 0,
+                  }))}
+                  height={200}
+                />
+              </HoverCardContent>
+            </HoverCard>
+
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <div>
+                  <Card className="p-6 border-border bg-card cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-sm text-muted-foreground mb-4">BATTERY HEALTH</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Cycle Count</span>
+                        <span className="text-sm font-bold text-foreground">1,247</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">State of Health</span>
+                        <span className="text-sm font-bold text-primary">96.8%</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Aging Rate</span>
+                        <span className="text-sm font-bold text-primary">Normal</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Next Maintenance</span>
+                        <span className="text-xs text-foreground">45 days</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <AreaChartComponent 
+                  title="BATTERY DEGRADATION TREND" 
+                  data={Array.from({ length: 12 }, (_, i) => ({
+                    time: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
+                    value: 100 - (i * 0.3),
+                    value2: 0,
+                  }))}
+                  height={200}
+                />
+              </HoverCardContent>
+            </HoverCard>
+          </div>
+
+          {/* Energy Rates & DR Incentives */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <div>
+                  <Card className="p-6 border-border bg-card cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-sm text-muted-foreground mb-4">ENERGY RATES</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Current TOU Rate</span>
+                        <span className="text-sm font-bold text-secondary">$0.145/kWh</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Off-Peak Rate</span>
+                        <span className="text-xs text-foreground">$0.089/kWh</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Peak Rate</span>
+                        <span className="text-xs text-foreground">$0.245/kWh</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Demand Charge</span>
+                        <span className="text-sm font-bold text-destructive">$18.50/kW</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <BarChartComponent 
+                  title="TOU RATES BY HOUR" 
+                  data={Array.from({ length: 24 }, (_, i) => ({
+                    time: `${i}:00`,
+                    value: i >= 16 && i <= 21 ? 0.245 : i >= 9 && i <= 16 ? 0.145 : 0.089,
+                    value2: 0,
+                  }))}
+                  height={200}
+                />
+              </HoverCardContent>
+            </HoverCard>
+
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <div>
+                  <Card className="p-6 border-border bg-card cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-sm text-muted-foreground mb-4">DR COMPENSATION</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Today's Payment</span>
+                        <span className="text-sm font-bold text-primary">$2,450</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Incentives MTD</span>
+                        <span className="text-xs text-foreground">$18,200</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Expected This Month</span>
+                        <span className="text-sm font-bold text-primary">$24,500</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">YTD Total</span>
+                        <span className="text-xs text-foreground">$142,300</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <BarChartComponent 
+                  title="MONTHLY DR PAYMENTS" 
+                  data={Array.from({ length: 12 }, (_, i) => ({
+                    time: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
+                    value: Math.sin(i / 2) * 5000 + 15000,
+                    value2: 0,
+                  }))}
+                  height={200}
+                />
+              </HoverCardContent>
+            </HoverCard>
+
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <div>
+                  <Card className="p-6 border-border bg-card cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-sm text-muted-foreground mb-4">EQUIPMENT LIMITS</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Heat Pump Temp</span>
+                        <span className="text-sm font-bold text-primary">42°C</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Pressure</span>
+                        <span className="text-xs text-foreground">2.8 bar</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Electrolyzer Load</span>
+                        <span className="text-sm font-bold text-primary">1.8 MW</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">H2 Production</span>
+                        <span className="text-xs text-foreground">85 kg/h</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <AreaChartComponent 
+                  title="EQUIPMENT PERFORMANCE (24H)" 
+                  data={Array.from({ length: 24 }, (_, i) => ({
+                    time: `${i}:00`,
+                    value: Math.sin(i / 4) * 10 + 40,
+                    value2: Math.sin(i / 3.5) * 0.5 + 2.5,
+                  }))}
+                  height={200}
+                />
+              </HoverCardContent>
+            </HoverCard>
+
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <div>
+                  <Card className="p-6 border-border bg-card cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-sm text-muted-foreground mb-4">COST SAVINGS</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Battery Savings</span>
+                        <span className="text-sm font-bold text-primary">$3,240</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">DR Actions</span>
+                        <span className="text-sm font-bold text-primary">$2,450</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Load Shifting</span>
+                        <span className="text-sm font-bold text-primary">$1,180</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">Total Today</span>
+                        <span className="text-sm font-bold text-primary">$6,870</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <BarChartComponent 
+                  title="DAILY COST SAVINGS" 
+                  data={Array.from({ length: 7 }, (_, i) => ({
+                    time: `Day ${i + 1}`,
+                    value: Math.sin(i / 2) * 2000 + 6000,
+                    value2: 0,
+                  }))}
+                  height={200}
+                />
+              </HoverCardContent>
+            </HoverCard>
+          </div>
+
+          {/* Energy Timeline & DR Baseline */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <Card className="p-6 border-border bg-card cursor-pointer hover:bg-accent/50 transition-colors">
+                  <p className="text-sm text-muted-foreground mb-4">ENERGY CONSUMPTION & PEAK EXPOSURE</p>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">Current Consumption</span>
+                      <span className="text-lg font-bold text-foreground">8.4 MW</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">Today's Peak</span>
+                      <span className="text-sm font-bold text-destructive">9.2 MW</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">Monthly Peak</span>
+                      <span className="text-sm font-bold text-secondary">9.8 MW</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">Peak Demand Charge</span>
+                      <span className="text-sm font-bold text-destructive">$181.30</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">Next Peak Window</span>
+                      <span className="text-xs text-foreground">16:00 - 21:00</span>
+                    </div>
+                  </div>
+                </Card>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-[600px] p-4" side="bottom">
+                <AreaChartComponent 
+                  title="ENERGY CONSUMPTION TIMELINE & PEAK FORECAST" 
+                  data={Array.from({ length: 48 }, (_, i) => ({
+                    time: `${i}:00`,
+                    value: Math.sin(i / 4) * 100 + 350,
+                    value2: i >= 32 && i <= 42 ? 450 : 0,
+                  }))}
+                  height={250}
+                />
+              </HoverCardContent>
+            </HoverCard>
+
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <Card className="p-6 border-border bg-card cursor-pointer hover:bg-accent/50 transition-colors">
+                  <div className="flex items-start justify-between mb-4">
+                    <p className="text-sm text-muted-foreground">DR BASELINE VS ACTUAL</p>
+                    {drStatus === "active" && <Badge variant="destructive">Event Active</Badge>}
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">Baseline Load</span>
+                      <span className="text-lg font-bold text-muted-foreground">10.9 MW</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">Actual Load</span>
+                      <span className="text-lg font-bold text-foreground">8.4 MW</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">Reduction Achieved</span>
+                      <span className="text-sm font-bold text-primary">{drReduction} MW</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">Performance</span>
+                      <span className="text-sm font-bold text-primary">100%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">Event Ends In</span>
+                      <span className="text-xs text-foreground">{drTimeRemaining}</span>
+                    </div>
+                  </div>
+                </Card>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-[600px] p-4" side="bottom">
+                <AreaChartComponent 
+                  title="DR EVENT: BASELINE VS ACTUAL LOAD" 
+                  data={Array.from({ length: 24 }, (_, i) => ({
+                    time: `${i}:00`,
+                    value: i >= 14 && i <= 18 ? 350 : 370,
+                    value2: 400,
+                  }))}
+                  height={250}
+                />
+              </HoverCardContent>
+            </HoverCard>
+          </div>
         </>
       )}
 
