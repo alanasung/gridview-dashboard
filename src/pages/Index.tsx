@@ -74,20 +74,26 @@ const Index = () => {
     value: Math.sin(i / 6) * 5 + 15,
   }));
 
-  const lmp7DaysData = Array.from({ length: 7 * 24 }, (_, i) => ({
-    time: `Day ${Math.floor(i / 24) + 1}`,
-    value: Math.random() * 40 + 20,
-  }));
+  const [lmp7DaysData] = useState(() => 
+    Array.from({ length: 7 * 24 }, (_, i) => ({
+      time: `Day ${Math.floor(i / 24) + 1}`,
+      value: Math.sin(i / 12) * 15 + 40,
+    }))
+  );
 
-  const lmp30DaysData = Array.from({ length: 30 }, (_, i) => ({
-    time: `${i + 1}`,
-    value: Math.random() * 40 + 20,
-  }));
+  const [lmp30DaysData] = useState(() =>
+    Array.from({ length: 30 }, (_, i) => ({
+      time: `${i + 1}`,
+      value: Math.sin(i / 5) * 15 + 40,
+    }))
+  );
 
-  const lmp1YearData = Array.from({ length: 12 }, (_, i) => ({
-    time: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
-    value: Math.random() * 40 + 20,
-  }));
+  const [lmp1YearData] = useState(() =>
+    Array.from({ length: 12 }, (_, i) => ({
+      time: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
+      value: Math.sin(i / 2) * 15 + 40,
+    }))
+  );
 
   return (
     <div className="min-h-screen bg-background p-4 md:p-8 animate-fade-in">
