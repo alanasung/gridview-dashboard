@@ -8,6 +8,8 @@ import { BarChartComponent } from "@/components/dashboard/BarChart";
 import { useEffect, useState } from "react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { AlertTriangle } from "lucide-react";
 
 const Index = () => {
   const [greenFactor, setGreenFactor] = useState(18);
@@ -94,6 +96,11 @@ const Index = () => {
       value: Math.sin(i / 2) * 15 + 40,
     }))
   );
+
+  // Demand Response state
+  const [drStatus] = useState<"none" | "upcoming" | "active">("active");
+  const [drTimeRemaining] = useState("1h 22m");
+  const [drReduction] = useState("2.5");
 
   return (
     <div className="min-h-screen bg-background p-4 md:p-8 animate-fade-in">
@@ -372,6 +379,76 @@ const Index = () => {
                 { label: "Total", value: "124 M3" },
               ]}
             />
+          </div>
+
+          {/* Demand Response Card */}
+          <div className="mb-4">
+            <Card className="p-6 border-border bg-card">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <AlertTriangle className="h-5 w-5 text-muted-foreground" />
+                  <h3 className="text-lg font-semibold">Demand Response</h3>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div 
+                    className={`w-3 h-3 rounded-full ${
+                      drStatus === "active" ? "bg-destructive animate-pulse" :
+                      drStatus === "upcoming" ? "bg-yellow-500 animate-pulse" :
+                      "bg-primary"
+                    }`} 
+                  />
+                  <Badge 
+                    variant={drStatus === "active" ? "destructive" : "secondary"}
+                    className="font-semibold"
+                  >
+                    {drStatus === "active" ? "ACTIVE" : drStatus === "upcoming" ? "UPCOMING" : "NO EVENT"}
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Event Type</p>
+                  <p className="text-xl font-bold text-foreground">
+                    {drStatus === "active" ? "Emergency" : drStatus === "upcoming" ? "Scheduled" : "None"}
+                  </p>
+                </div>
+
+                {drStatus !== "none" && (
+                  <>
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">Time Remaining</p>
+                      <p className="text-3xl font-bold text-foreground">{drTimeRemaining}</p>
+                    </div>
+
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">Required Reduction</p>
+                      <div className="flex items-baseline gap-2">
+                        <p className="text-3xl font-bold text-foreground">{drReduction}</p>
+                        <p className="text-lg text-muted-foreground">MW</p>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                <div className="pt-4 border-t border-border">
+                  <div className="flex items-center gap-4 text-xs">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-primary" />
+                      <span className="text-muted-foreground">No Event</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-yellow-500" />
+                      <span className="text-muted-foreground">Upcoming</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-destructive" />
+                      <span className="text-muted-foreground">Active</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
           </div>
         </>
       )}
