@@ -10,12 +10,14 @@ export const DateTimeWidget = () => {
   }, []);
 
   return (
-    <Card className="p-2 border-border bg-card">
-      <p className="text-xs text-muted-foreground mb-1">DATE AND TIME</p>
-      <p className="text-4xl font-bold leading-tight">{time.toLocaleTimeString("en-US", { hour12: false })}</p>
-      <p className="text-sm text-muted-foreground leading-none">
-        {time.toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "short", year: "numeric" })}
-      </p>
+    <Card className="p-4 border-border bg-card">
+      <p className="text-xs text-muted-foreground mb-2">DATE AND TIME</p>
+      <div className="flex flex-col items-center justify-center">
+        <p className="text-3xl font-bold leading-none">{time.toLocaleTimeString("en-US", { hour12: false })}</p>
+        <p className="text-xs text-muted-foreground mt-2 leading-none">
+          {time.toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "short", year: "numeric" })}
+        </p>
+      </div>
     </Card>
   );
 };
