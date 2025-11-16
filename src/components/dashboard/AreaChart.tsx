@@ -1,16 +1,26 @@
 import { Card } from "@/components/ui/card";
-import { Area, AreaChart as RechartsAreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
+import { Area, AreaChart as RechartsAreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip, ReferenceLine } from "recharts";
 
 interface AreaChartProps {
   title: string;
   data: Array<{ time: string; value: number; value2?: number }>;
   height?: number;
+  currentIndex?: number;
+  currentValue?: number;
 }
 
-export const AreaChartComponent = ({ title, data, height = 200 }: AreaChartProps) => {
+export const AreaChartComponent = ({ title, data, height = 200, currentIndex, currentValue }: AreaChartProps) => {
   return (
     <Card className="p-6 border-border bg-card">
-      <p className="text-sm text-muted-foreground mb-4">{title}</p>
+      <div className="flex justify-between items-start mb-4">
+        <p className="text-sm text-muted-foreground">{title}</p>
+        {currentValue !== undefined && (
+          <div className="text-right">
+            <p className="text-xs text-muted-foreground">Current</p>
+            <p className="text-lg font-semibold text-primary">${currentValue.toFixed(2)}</p>
+          </div>
+        )}
+      </div>
       <ResponsiveContainer width="100%" height={height}>
         <RechartsAreaChart data={data}>
           <defs>
@@ -43,6 +53,15 @@ export const AreaChartComponent = ({ title, data, height = 200 }: AreaChartProps
               borderRadius: "8px",
             }}
           />
+          {currentIndex !== undefined && (
+            <ReferenceLine
+              x={data[currentIndex]?.time}
+              stroke="hsl(var(--primary))"
+              strokeWidth={2}
+              strokeDasharray="3 3"
+              label={{ value: "Now", position: "top", fill: "hsl(var(--primary))", fontSize: 12 }}
+            />
+          )}
           <Area 
             type="monotone" 
             dataKey="value" 
