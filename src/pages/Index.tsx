@@ -33,9 +33,9 @@ const Index = () => {
     value2: Math.sin(i / 4.2) * 1300 + 900,
   }));
 
-  const pricingData = Array.from({ length: 24 }, (_, i) => ({
+  const loadForecastData = Array.from({ length: 24 }, (_, i) => ({
     time: `${i}:00`,
-    value: Math.random() * 200 + 100,
+    value: Math.sin(i / 3.5) * 150 + 350 + Math.random() * 30,
   }));
 
   return (
@@ -122,6 +122,17 @@ const Index = () => {
                 { label: "Total", value: "124 M3" },
               ]}
             />
+          </div>
+
+          {/* Load Forecast */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="md:col-span-2">
+              <AreaChartComponent
+                title="LOAD FORECAST - NEXT 24 HOURS"
+                data={loadForecastData}
+                height={250}
+              />
+            </div>
           </div>
         </>
       )}
