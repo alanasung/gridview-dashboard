@@ -117,59 +117,9 @@ const Index = () => {
             ]}
           />
         </div>
-        <StatsCard
-          title="LOCAL GREEN ENERGY"
-          subtitle="Produced last hour"
-          value="125"
-          unit="kW"
-          indicator="green"
-          details={[
-            { label: "Week To Date", value: "124 MWh" },
-            { label: "Month To Date", value: "124 MWh" },
-            { label: "Year To Date", value: "124 MWh" },
-            { label: "Total", value: "124 MWh" },
-          ]}
-        />
-        <StatsCard
-          title="HBE FACTOR"
-          subtitle="Generated today"
-          value="38"
-          unit="%"
-          details={[
-            { label: "Week To Date", value: "46 %" },
-            { label: "Month To Date", value: "46 %" },
-            { label: "Year To Date", value: "46 %" },
-            { label: "Total", value: "46 %" },
-          ]}
-        />
-        <StatsCard
-          title="HBE CERTIFICATES"
-          subtitle="Generated today"
-          value="5"
-          unit="HBE"
-          indicator="green"
-          details={[
-            { label: "Daily Total", value: "5 HBE" },
-            { label: "Month To Date", value: "10 HBE" },
-            { label: "Year To Date", value: "15 HBE" },
-            { label: "Total", value: "20 HBE" },
-          ]}
-        />
-        <StatsCard
-          title="TOTAL GRID"
-          subtitle="33% Of Max. Capacity"
-          value="15"
-          unit="MW"
-          indicator="orange"
-          details={[
-            { label: "Daily", value: "IN: 124 OUT: 124 MWh" },
-            { label: "Weekly", value: "124 124 MWh" },
-            { label: "Monthly", value: "124 124 MWh" },
-          ]}
-        />
       </div>
 
-      {/* Water and Gas */}
+      {/* Water */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <StatsCard
           title="WATER"
@@ -177,18 +127,6 @@ const Index = () => {
           value="150"
           unit="m3/h"
           indicator="green"
-          details={[
-            { label: "Daily Total", value: "124 M3" },
-            { label: "Month To Date", value: "124 M3" },
-            { label: "Year To Date", value: "124 M3" },
-            { label: "Total", value: "124 M3" },
-          ]}
-        />
-        <StatsCard
-          title="GAS"
-          subtitle="Usage last hour"
-          value="150"
-          unit="m3/h"
           details={[
             { label: "Daily Total", value: "124 M3" },
             { label: "Month To Date", value: "124 M3" },
