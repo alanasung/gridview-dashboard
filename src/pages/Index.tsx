@@ -103,24 +103,22 @@ const Index = () => {
 
 
       {/* Energy Breakdown and Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
-        <div className="lg:col-span-1">
-          <EnergyBreakdown
-            title="ENERGY USAGE"
-            total={372}
-            unit="MW"
-            items={[
-              { name: "Building", value: 124, unit: "MW", percentage: 46.83, color: "bg-primary" },
-              { name: "DC Chargers", value: 124, unit: "MW", percentage: 22.34, color: "bg-secondary" },
-              { name: "AC Chargers", value: 124, unit: "MW", percentage: 21.34, color: "bg-chart-3" },
-              { name: "Battery Storage", value: 1, unit: "MW", percentage: 0.3, color: "bg-chart-4" },
-            ]}
-          />
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <EnergyBreakdown
+          title="ENERGY USAGE"
+          total={372}
+          unit="MW"
+          items={[
+            { name: "Building", value: 124, unit: "MW", percentage: 46.83, color: "bg-primary" },
+            { name: "DC Chargers", value: 124, unit: "MW", percentage: 22.34, color: "bg-secondary" },
+            { name: "AC Chargers", value: 124, unit: "MW", percentage: 21.34, color: "bg-chart-3" },
+            { name: "Battery Storage", value: 1, unit: "MW", percentage: 0.3, color: "bg-chart-4" },
+          ]}
+        />
       </div>
 
       {/* Water */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <StatsCard
           title="WATER"
           subtitle="Usage last hour"
@@ -137,38 +135,24 @@ const Index = () => {
       </div>
 
       {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
-        <AreaChartComponent
-          title="SOLAR POWER"
-          data={solarData}
-          height={250}
-        />
-        <BarChartComponent
-          title="EPEX ELECTRA PRICING DAY-AHEAD"
-          subtitle="Today 14:00:23"
-          data={pricingData}
-          height={250}
-        />
-        <div className="flex flex-col gap-4">
-          <StatsCard
-            title="CURRENT EPEX PRICE"
-            value="114.85"
-            unit="€/MWh"
-            details={[
-              { label: "Today average", value: "124 €/MW" },
-              { label: "Today Min", value: "124 €/MW" },
-              { label: "Today Max", value: "124 €/MW" },
-            ]}
-          />
-          <CircularGauge
-            title="TOTAL BATTERY"
-            value={Math.round(batteryLevel)}
-            maxValue={100}
-            label="State of Charge"
-            subtitle="The Battery is 80% Charged"
-            size="sm"
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <div className="md:col-span-2">
+          <AreaChartComponent
+            title="SOLAR POWER"
+            data={solarData}
+            height={250}
           />
         </div>
+        <StatsCard
+          title="CURRENT EPEX PRICE"
+          value="114.85"
+          unit="€/MWh"
+          details={[
+            { label: "Today average", value: "124 €/MW" },
+            { label: "Today Min", value: "124 €/MW" },
+            { label: "Today Max", value: "124 €/MW" },
+          ]}
+        />
       </div>
 
       {/* Footer */}
