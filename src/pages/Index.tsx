@@ -101,48 +101,6 @@ const Index = () => {
         />
       </div>
 
-      {/* EV Chargers */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <StatsCard
-          title="TOTAL CHARGERS"
-          subtitle="25% Of Max. Capacity"
-          value="256"
-          unit="kW"
-          indicator="green"
-          details={[
-            { label: "Daily Total", value: "124 MWh" },
-            { label: "Month To Date", value: "124 MWh" },
-            { label: "Year To Date", value: "124 MWh" },
-            { label: "Total", value: "124 MWh" },
-          ]}
-        />
-        <StatsCard
-          title="AC CHARGER"
-          subtitle="50,000 active"
-          value="128"
-          unit="kW"
-          indicator="orange"
-          details={[
-            { label: "Daily Total", value: "124 MWh" },
-            { label: "Month To Date", value: "124 MWh" },
-            { label: "Year To Date", value: "124 MWh" },
-            { label: "Total", value: "124 MWh" },
-          ]}
-        />
-        <StatsCard
-          title="DC CHARGER"
-          subtitle="10,72 active"
-          value="128"
-          unit="kW"
-          indicator="green"
-          details={[
-            { label: "Daily Total", value: "124 MWh" },
-            { label: "Month To Date", value: "124 MWh" },
-            { label: "Year To Date", value: "124 MWh" },
-            { label: "Total", value: "124 MWh" },
-          ]}
-        />
-      </div>
 
       {/* Energy Breakdown and Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
