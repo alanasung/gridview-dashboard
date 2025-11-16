@@ -223,55 +223,57 @@ const Index = () => {
           {/* Charts Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             {/* Solar Power with History */}
-            <div className="relative">
-              <HoverCard openDelay={200}>
-                <HoverCardTrigger asChild>
-                  <div className="cursor-pointer">
-                    <AreaChartComponent title="SOLAR POWER" data={solarData} height={250} />
-                  </div>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-[600px] p-4" side="bottom">
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-semibold text-foreground">Solar Power History</h3>
-                    <div className="space-y-4">
-                      <div>
-                        <p className="text-xs text-muted-foreground mb-2">Last 7 Days</p>
-                        <AreaChartComponent title="" data={solar7DaysData} height={150} />
-                      </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground mb-2">Last 30 Days</p>
-                        <AreaChartComponent title="" data={solar30DaysData} height={150} />
-                      </div>
-                    </div>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
+            <div className="space-y-2">
+              <AreaChartComponent title="SOLAR POWER" data={solarData} height={250} />
+              <div className="flex gap-2">
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                      <p className="text-xs font-medium text-center text-muted-foreground">Last 7 Days</p>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-96 p-4" side="bottom">
+                    <AreaChartComponent title="SOLAR POWER - LAST 7 DAYS" data={solar7DaysData} height={200} />
+                  </HoverCardContent>
+                </HoverCard>
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                      <p className="text-xs font-medium text-center text-muted-foreground">Last 30 Days</p>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-96 p-4" side="bottom">
+                    <AreaChartComponent title="SOLAR POWER - LAST 30 DAYS" data={solar30DaysData} height={200} />
+                  </HoverCardContent>
+                </HoverCard>
+              </div>
             </div>
 
             {/* Wind Power with History */}
-            <div className="relative">
-              <HoverCard openDelay={200}>
-                <HoverCardTrigger asChild>
-                  <div className="cursor-pointer">
-                    <AreaChartComponent title="WIND POWER" data={windData} height={250} />
-                  </div>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-[600px] p-4" side="bottom">
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-semibold text-foreground">Wind Power History</h3>
-                    <div className="space-y-4">
-                      <div>
-                        <p className="text-xs text-muted-foreground mb-2">Last 7 Days</p>
-                        <AreaChartComponent title="" data={wind7DaysData} height={150} />
-                      </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground mb-2">Last 30 Days</p>
-                        <AreaChartComponent title="" data={wind30DaysData} height={150} />
-                      </div>
-                    </div>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
+            <div className="space-y-2">
+              <AreaChartComponent title="WIND POWER" data={windData} height={250} />
+              <div className="flex gap-2">
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                      <p className="text-xs font-medium text-center text-muted-foreground">Last 7 Days</p>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-96 p-4" side="bottom">
+                    <AreaChartComponent title="WIND POWER - LAST 7 DAYS" data={wind7DaysData} height={200} />
+                  </HoverCardContent>
+                </HoverCard>
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                      <p className="text-xs font-medium text-center text-muted-foreground">Last 30 Days</p>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-96 p-4" side="bottom">
+                    <AreaChartComponent title="WIND POWER - LAST 30 DAYS" data={wind30DaysData} height={200} />
+                  </HoverCardContent>
+                </HoverCard>
+              </div>
             </div>
             <div className="space-y-2">
               <CircularGauge
