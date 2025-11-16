@@ -143,15 +143,12 @@ const Index = () => {
             height={250}
           />
         </div>
-        <StatsCard
-          title="CURRENT EPEX PRICE"
-          value="114.85"
-          unit="€/MWh"
-          details={[
-            { label: "Today average", value: "124 €/MW" },
-            { label: "Today Min", value: "124 €/MW" },
-            { label: "Today Max", value: "124 €/MW" },
-          ]}
+        <CircularGauge
+          title="TOTAL BATTERY"
+          value={Math.round(batteryLevel)}
+          maxValue={100}
+          label="State of Charge"
+          subtitle="The Battery is 80% Charged"
         />
       </div>
 
