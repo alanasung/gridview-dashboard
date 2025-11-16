@@ -97,6 +97,40 @@ const Index = () => {
     }))
   );
 
+  // Solar Power historical data
+  const [solar7DaysData] = useState(() =>
+    Array.from({ length: 7 * 24 }, (_, i) => ({
+      time: `Day ${Math.floor(i / 24) + 1}`,
+      value: Math.sin(i / 12) * 2000 + 1500,
+      value2: Math.sin(i / 12) * 1500 + 1000,
+    }))
+  );
+
+  const [solar30DaysData] = useState(() =>
+    Array.from({ length: 30 * 24 }, (_, i) => ({
+      time: `Day ${Math.floor(i / 24) + 1}`,
+      value: Math.sin(i / 24) * 2000 + 1500,
+      value2: Math.sin(i / 24) * 1500 + 1000,
+    }))
+  );
+
+  // Wind Power historical data
+  const [wind7DaysData] = useState(() =>
+    Array.from({ length: 7 * 24 }, (_, i) => ({
+      time: `Day ${Math.floor(i / 24) + 1}`,
+      value: Math.sin(i / 14) * 1800 + 1200,
+      value2: Math.sin(i / 14) * 1300 + 900,
+    }))
+  );
+
+  const [wind30DaysData] = useState(() =>
+    Array.from({ length: 30 * 24 }, (_, i) => ({
+      time: `Day ${Math.floor(i / 24) + 1}`,
+      value: Math.sin(i / 28) * 1800 + 1200,
+      value2: Math.sin(i / 28) * 1300 + 900,
+    }))
+  );
+
   // Demand Response state
   const [drStatus] = useState<"none" | "upcoming" | "active">("active");
   const [drTimeRemaining] = useState("1h 22m");
@@ -188,8 +222,57 @@ const Index = () => {
         <>
           {/* Charts Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-            <AreaChartComponent title="SOLAR POWER" data={solarData} height={250} />
-            <AreaChartComponent title="WIND POWER" data={windData} height={250} />
+            {/* Solar Power with History */}
+            <div className="relative">
+              <HoverCard openDelay={200}>
+                <HoverCardTrigger asChild>
+                  <div className="cursor-pointer">
+                    <AreaChartComponent title="SOLAR POWER" data={solarData} height={250} />
+                  </div>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-[600px] p-4" side="bottom">
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-semibold text-foreground">Solar Power History</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-2">Last 7 Days</p>
+                        <AreaChartComponent title="" data={solar7DaysData} height={150} />
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-2">Last 30 Days</p>
+                        <AreaChartComponent title="" data={solar30DaysData} height={150} />
+                      </div>
+                    </div>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </div>
+
+            {/* Wind Power with History */}
+            <div className="relative">
+              <HoverCard openDelay={200}>
+                <HoverCardTrigger asChild>
+                  <div className="cursor-pointer">
+                    <AreaChartComponent title="WIND POWER" data={windData} height={250} />
+                  </div>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-[600px] p-4" side="bottom">
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-semibold text-foreground">Wind Power History</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-2">Last 7 Days</p>
+                        <AreaChartComponent title="" data={wind7DaysData} height={150} />
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-2">Last 30 Days</p>
+                        <AreaChartComponent title="" data={wind30DaysData} height={150} />
+                      </div>
+                    </div>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </div>
             <div className="space-y-2">
               <CircularGauge
                 title="BESS-BLDG1-FLR1"
