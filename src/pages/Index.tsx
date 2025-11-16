@@ -102,23 +102,21 @@ const Index = () => {
       </div>
 
 
-      {/* Energy Breakdown and Metrics */}
+      {/* Energy Breakdown and Water */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <EnergyBreakdown
-          title="ENERGY USAGE"
-          total={372}
-          unit="MW"
-          items={[
-            { name: "Building", value: 124, unit: "MW", percentage: 46.83, color: "bg-primary" },
-            { name: "DC Chargers", value: 124, unit: "MW", percentage: 22.34, color: "bg-secondary" },
-            { name: "AC Chargers", value: 124, unit: "MW", percentage: 21.34, color: "bg-chart-3" },
-            { name: "Battery Storage", value: 1, unit: "MW", percentage: 0.3, color: "bg-chart-4" },
-          ]}
-        />
-      </div>
-
-      {/* Water */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <div className="md:col-span-1 lg:col-span-2">
+          <EnergyBreakdown
+            title="ENERGY USAGE"
+            total={372}
+            unit="MW"
+            items={[
+              { name: "Building", value: 124, unit: "MW", percentage: 46.83, color: "bg-primary" },
+              { name: "DC Chargers", value: 124, unit: "MW", percentage: 22.34, color: "bg-secondary" },
+              { name: "AC Chargers", value: 124, unit: "MW", percentage: 21.34, color: "bg-chart-3" },
+              { name: "Battery Storage", value: 1, unit: "MW", percentage: 0.3, color: "bg-chart-4" },
+            ]}
+          />
+        </div>
         <StatsCard
           title="WATER"
           subtitle="Usage last hour"
