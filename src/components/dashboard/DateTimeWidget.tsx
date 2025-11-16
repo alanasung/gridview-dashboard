@@ -10,7 +10,7 @@ export const DateTimeWidget = () => {
   }, []);
 
   return (
-    <Card className="p-4 border-border bg-card">
+    <Card className="p-6 border-border bg-card">
       <p className="text-xs text-muted-foreground mb-2">DATE AND TIME</p>
       <div className="flex flex-col items-center justify-center">
         <p className="text-3xl font-bold leading-none">{time.toLocaleTimeString("en-US", { hour12: false })}</p>
