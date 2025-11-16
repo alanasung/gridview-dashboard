@@ -7,9 +7,11 @@ interface CircularGaugeProps {
   label: string;
   subtitle?: string;
   size?: "sm" | "lg";
+  metrics?: Array<{ label: string; value: string }>;
+  isAvailable?: boolean;
 }
 
-export const CircularGauge = ({ title, value, maxValue, label, subtitle, size = "lg" }: CircularGaugeProps) => {
+export const CircularGauge = ({ title, value, maxValue, label, subtitle, size = "lg", metrics, isAvailable }: CircularGaugeProps) => {
   const percentage = (value / maxValue) * 100;
   const circumference = size === "lg" ? 377 : 251;
   const strokeDashoffset = circumference - (circumference * percentage) / 100;
@@ -49,6 +51,24 @@ export const CircularGauge = ({ title, value, maxValue, label, subtitle, size = 
           </div>
         </div>
         {subtitle && <p className="text-xs text-muted-foreground mt-4">{subtitle}</p>}
+        {metrics && (
+          <div className="mt-4 space-y-2 w-full">
+            {metrics.map((metric, index) => (
+              <div key={index} className="flex justify-between text-xs">
+                <span className="text-muted-foreground">{metric.label}</span>
+                <span className="font-medium">{metric.value}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        {isAvailable !== undefined && (
+          <div className="flex items-center gap-2 mt-4">
+            <div className={`w-2 h-2 rounded-full ${isAvailable ? 'bg-green-500' : 'bg-red-500'}`} />
+            <span className="text-xs text-muted-foreground">
+              {isAvailable ? 'Available' : 'Unavailable'}
+            </span>
+          </div>
+        )}
       </div>
     </Card>
   );
