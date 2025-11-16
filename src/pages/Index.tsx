@@ -49,7 +49,7 @@ const Index = () => {
         <WeatherWidget title="WEATHER TOMORROW" temperature={5} condition="65 KM/H E" rain={55} />
         <div className="md:col-span-2 lg:col-span-1">
           <CircularGauge
-            title="total carbon intensity of electric grid"
+            title="Total Carbon Intensity of Electric Grid"
             value={Math.round(greenFactor)}
             maxValue={100}
             label="Green factor"
