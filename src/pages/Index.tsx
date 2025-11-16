@@ -88,6 +88,17 @@ const Index = () => {
               subtitle="The Battery is 80% Charged"
             />
           </div>
+
+          {/* Load Forecast */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="md:col-span-2">
+              <AreaChartComponent
+                title="LOAD FORECAST - NEXT 24 HOURS"
+                data={loadForecastData}
+                height={250}
+              />
+            </div>
+          </div>
         </>
       )}
 
@@ -122,17 +133,6 @@ const Index = () => {
                 { label: "Total", value: "124 M3" },
               ]}
             />
-          </div>
-
-          {/* Load Forecast */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div className="md:col-span-2">
-              <AreaChartComponent
-                title="LOAD FORECAST - NEXT 24 HOURS"
-                data={loadForecastData}
-                height={250}
-              />
-            </div>
           </div>
         </>
       )}
