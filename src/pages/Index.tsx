@@ -71,57 +71,53 @@ const Index = () => {
         <DateTimeWidget />
         <div className="space-y-2">
           <WeatherWidget title="WEATHER TODAY" temperature={5} condition="65 KM/H E" rain={55} />
-          {dashboardMode === "demand" && (
-            <div className="flex gap-2">
-              <HoverCard openDelay={200}>
-                <HoverCardTrigger asChild>
-                  <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
-                    <p className="text-xs font-medium text-center text-muted-foreground">Irradiance</p>
-                  </Card>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-96 p-4" side="bottom">
-                  <AreaChartComponent title="IRRADIANCE (W/m²)" data={irradianceData} height={200} />
-                </HoverCardContent>
-              </HoverCard>
-              <HoverCard openDelay={200}>
-                <HoverCardTrigger asChild>
-                  <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
-                    <p className="text-xs font-medium text-center text-muted-foreground">Wind Speed</p>
-                  </Card>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-96 p-4" side="bottom">
-                  <AreaChartComponent title="WIND SPEED (m/s)" data={windSpeedData} height={200} />
-                </HoverCardContent>
-              </HoverCard>
-            </div>
-          )}
+          <div className="flex gap-2">
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                  <p className="text-xs font-medium text-center text-muted-foreground">Irradiance</p>
+                </Card>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <AreaChartComponent title="IRRADIANCE (W/m²)" data={irradianceData} height={200} />
+              </HoverCardContent>
+            </HoverCard>
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                  <p className="text-xs font-medium text-center text-muted-foreground">Wind Speed</p>
+                </Card>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <AreaChartComponent title="WIND SPEED (m/s)" data={windSpeedData} height={200} />
+              </HoverCardContent>
+            </HoverCard>
+          </div>
         </div>
         <div className="space-y-2">
           <WeatherWidget title="WEATHER TOMORROW" temperature={5} condition="65 KM/H E" rain={55} />
-          {dashboardMode === "demand" && (
-            <div className="flex gap-2">
-              <HoverCard openDelay={200}>
-                <HoverCardTrigger asChild>
-                  <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
-                    <p className="text-xs font-medium text-center text-muted-foreground">Irradiance</p>
-                  </Card>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-96 p-4" side="bottom">
-                  <AreaChartComponent title="IRRADIANCE (W/m²)" data={irradianceData} height={200} />
-                </HoverCardContent>
-              </HoverCard>
-              <HoverCard openDelay={200}>
-                <HoverCardTrigger asChild>
-                  <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
-                    <p className="text-xs font-medium text-center text-muted-foreground">Wind Speed</p>
-                  </Card>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-96 p-4" side="bottom">
-                  <AreaChartComponent title="WIND SPEED (m/s)" data={windSpeedData} height={200} />
-                </HoverCardContent>
-              </HoverCard>
-            </div>
-          )}
+          <div className="flex gap-2">
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                  <p className="text-xs font-medium text-center text-muted-foreground">Irradiance</p>
+                </Card>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <AreaChartComponent title="IRRADIANCE (W/m²)" data={irradianceData} height={200} />
+              </HoverCardContent>
+            </HoverCard>
+            <HoverCard openDelay={200}>
+              <HoverCardTrigger asChild>
+                <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                  <p className="text-xs font-medium text-center text-muted-foreground">Wind Speed</p>
+                </Card>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-96 p-4" side="bottom">
+                <AreaChartComponent title="WIND SPEED (m/s)" data={windSpeedData} height={200} />
+              </HoverCardContent>
+            </HoverCard>
+          </div>
         </div>
         <div className="md:col-span-2 lg:col-span-1">
           <CircularGauge
