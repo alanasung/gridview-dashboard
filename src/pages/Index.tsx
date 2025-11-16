@@ -13,10 +13,11 @@ const Index = () => {
   const [greenFactor, setGreenFactor] = useState(18);
   const [batteryLevel, setBatteryLevel] = useState(80);
   const [dashboardMode, setDashboardMode] = useState<"supply" | "demand">("supply");
+  const [currentHour] = useState(new Date().getHours());
   const [lmpData, setLmpData] = useState(() => 
     Array.from({ length: 42 }, (_, i) => ({
       time: `${i}:00`,
-      value: Math.random() * 40 + 20, // $20-$60 range
+      value: Math.sin(i / 4) * 15 + 40 + Math.random() * 5, // Smoother pattern $25-$60 range
     }))
   );
 
@@ -26,13 +27,14 @@ const Index = () => {
       setGreenFactor((prev) => Math.min(100, Math.max(0, prev + (Math.random() - 0.5) * 2)));
       setBatteryLevel((prev) => Math.min(100, Math.max(0, prev + (Math.random() - 0.5) * 2)));
       
-      // Update LMP data dynamically
+      // Update LMP data dynamically - subtle changes
       setLmpData((prev) => {
         const newData = [...prev];
+        const lastValue = newData[newData.length - 1].value;
         newData.shift(); // Remove oldest
         newData.push({
           time: `${newData.length}:00`,
-          value: Math.random() * 40 + 20, // $20-$60 range
+          value: lastValue + (Math.random() - 0.5) * 2, // Small incremental changes
         });
         return newData;
       });
@@ -293,6 +295,8 @@ const Index = () => {
                 title="REAL-TIME LMPS ($/MWh) - NEXT 42 HOURS"
                 data={lmpData}
                 height={250}
+                currentIndex={currentHour}
+                currentValue={lmpData[currentHour]?.value}
               />
               <div className="flex gap-2">
                 <HoverCard openDelay={200}>
