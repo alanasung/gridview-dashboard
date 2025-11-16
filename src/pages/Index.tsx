@@ -7,6 +7,7 @@ import { AreaChartComponent } from "@/components/dashboard/AreaChart";
 import { BarChartComponent } from "@/components/dashboard/BarChart";
 import { useEffect, useState } from "react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Card } from "@/components/ui/card";
 
 const Index = () => {
   const [greenFactor, setGreenFactor] = useState(18);
@@ -68,8 +69,60 @@ const Index = () => {
       {/* Main Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <DateTimeWidget />
-        <WeatherWidget title="WEATHER TODAY" temperature={5} condition="65 KM/H E" rain={55} />
-        <WeatherWidget title="WEATHER TOMORROW" temperature={5} condition="65 KM/H E" rain={55} />
+        <div className="space-y-2">
+          <WeatherWidget title="WEATHER TODAY" temperature={5} condition="65 KM/H E" rain={55} />
+          {dashboardMode === "demand" && (
+            <div className="flex gap-2">
+              <HoverCard openDelay={200}>
+                <HoverCardTrigger asChild>
+                  <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-xs font-medium text-center text-muted-foreground">Irradiance</p>
+                  </Card>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-96 p-4" side="bottom">
+                  <AreaChartComponent title="IRRADIANCE (W/m²)" data={irradianceData} height={200} />
+                </HoverCardContent>
+              </HoverCard>
+              <HoverCard openDelay={200}>
+                <HoverCardTrigger asChild>
+                  <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-xs font-medium text-center text-muted-foreground">Wind Speed</p>
+                  </Card>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-96 p-4" side="bottom">
+                  <AreaChartComponent title="WIND SPEED (m/s)" data={windSpeedData} height={200} />
+                </HoverCardContent>
+              </HoverCard>
+            </div>
+          )}
+        </div>
+        <div className="space-y-2">
+          <WeatherWidget title="WEATHER TOMORROW" temperature={5} condition="65 KM/H E" rain={55} />
+          {dashboardMode === "demand" && (
+            <div className="flex gap-2">
+              <HoverCard openDelay={200}>
+                <HoverCardTrigger asChild>
+                  <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-xs font-medium text-center text-muted-foreground">Irradiance</p>
+                  </Card>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-96 p-4" side="bottom">
+                  <AreaChartComponent title="IRRADIANCE (W/m²)" data={irradianceData} height={200} />
+                </HoverCardContent>
+              </HoverCard>
+              <HoverCard openDelay={200}>
+                <HoverCardTrigger asChild>
+                  <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                    <p className="text-xs font-medium text-center text-muted-foreground">Wind Speed</p>
+                  </Card>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-96 p-4" side="bottom">
+                  <AreaChartComponent title="WIND SPEED (m/s)" data={windSpeedData} height={200} />
+                </HoverCardContent>
+              </HoverCard>
+            </div>
+          )}
+        </div>
         <div className="md:col-span-2 lg:col-span-1">
           <CircularGauge
             title="Total Carbon Intensity of Electric Grid"
@@ -86,34 +139,8 @@ const Index = () => {
         <>
           {/* Charts Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-            <HoverCard openDelay={200}>
-              <HoverCardTrigger asChild>
-                <div className="cursor-pointer">
-                  <AreaChartComponent title="SOLAR POWER" data={solarData} height={250} />
-                </div>
-              </HoverCardTrigger>
-              <HoverCardContent className="w-96 p-4" side="bottom">
-                <div className="space-y-4">
-                  <AreaChartComponent title="IRRADIANCE (W/m²)" data={irradianceData} height={200} />
-                  <AreaChartComponent title="TEMPERATURE (°C)" data={temperatureData} height={200} />
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-
-            <HoverCard openDelay={200}>
-              <HoverCardTrigger asChild>
-                <div className="cursor-pointer">
-                  <AreaChartComponent title="WIND POWER" data={windData} height={250} />
-                </div>
-              </HoverCardTrigger>
-              <HoverCardContent className="w-96 p-4" side="bottom">
-                <div className="space-y-4">
-                  <AreaChartComponent title="WIND SPEED (m/s)" data={windSpeedData} height={200} />
-                  <AreaChartComponent title="TEMPERATURE (°C)" data={temperatureData} height={200} />
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-
+            <AreaChartComponent title="SOLAR POWER" data={solarData} height={250} />
+            <AreaChartComponent title="WIND POWER" data={windData} height={250} />
             <CircularGauge
               title="TOTAL BATTERY"
               value={Math.round(batteryLevel)}
