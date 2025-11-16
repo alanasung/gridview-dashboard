@@ -13,12 +13,29 @@ const Index = () => {
   const [greenFactor, setGreenFactor] = useState(18);
   const [batteryLevel, setBatteryLevel] = useState(80);
   const [dashboardMode, setDashboardMode] = useState<"supply" | "demand">("supply");
+  const [lmpData, setLmpData] = useState(() => 
+    Array.from({ length: 42 }, (_, i) => ({
+      time: `${i}:00`,
+      value: Math.random() * 40 + 20, // $20-$60 range
+    }))
+  );
 
   // Simulate live data updates
   useEffect(() => {
     const interval = setInterval(() => {
       setGreenFactor((prev) => Math.min(100, Math.max(0, prev + (Math.random() - 0.5) * 2)));
       setBatteryLevel((prev) => Math.min(100, Math.max(0, prev + (Math.random() - 0.5) * 2)));
+      
+      // Update LMP data dynamically
+      setLmpData((prev) => {
+        const newData = [...prev];
+        newData.shift(); // Remove oldest
+        newData.push({
+          time: `${newData.length}:00`,
+          value: Math.random() * 40 + 20, // $20-$60 range
+        });
+        return newData;
+      });
     }, 3000);
     return () => clearInterval(interval);
   }, []);
@@ -53,6 +70,21 @@ const Index = () => {
   const temperatureData = Array.from({ length: 24 }, (_, i) => ({
     time: `${i}:00`,
     value: Math.sin(i / 6) * 5 + 15,
+  }));
+
+  const lmp7DaysData = Array.from({ length: 7 * 24 }, (_, i) => ({
+    time: `Day ${Math.floor(i / 24) + 1}`,
+    value: Math.random() * 40 + 20,
+  }));
+
+  const lmp30DaysData = Array.from({ length: 30 }, (_, i) => ({
+    time: `${i + 1}`,
+    value: Math.random() * 40 + 20,
+  }));
+
+  const lmp1YearData = Array.from({ length: 12 }, (_, i) => ({
+    time: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
+    value: Math.random() * 40 + 20,
   }));
 
   return (
@@ -243,7 +275,7 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Load Forecast */}
+          {/* Load Forecast and LMP */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="md:col-span-2">
               <AreaChartComponent
@@ -251,6 +283,49 @@ const Index = () => {
                 data={loadForecastData}
                 height={250}
               />
+            </div>
+          </div>
+
+          {/* Real-time LMPs */}
+          <div className="grid grid-cols-1 gap-4 mb-4">
+            <div className="space-y-2">
+              <AreaChartComponent
+                title="REAL-TIME LMPS ($/MWh) - NEXT 42 HOURS"
+                data={lmpData}
+                height={250}
+              />
+              <div className="flex gap-2">
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                      <p className="text-xs font-medium text-center text-muted-foreground">Last 7 Days</p>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-96 p-4" side="bottom">
+                    <AreaChartComponent title="LMPs - LAST 7 DAYS ($/MWh)" data={lmp7DaysData} height={200} />
+                  </HoverCardContent>
+                </HoverCard>
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                      <p className="text-xs font-medium text-center text-muted-foreground">Last 30 Days</p>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-96 p-4" side="bottom">
+                    <AreaChartComponent title="LMPs - LAST 30 DAYS ($/MWh)" data={lmp30DaysData} height={200} />
+                  </HoverCardContent>
+                </HoverCard>
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                      <p className="text-xs font-medium text-center text-muted-foreground">Last 1 Year</p>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-96 p-4" side="bottom">
+                    <AreaChartComponent title="LMPs - LAST 1 YEAR ($/MWh)" data={lmp1YearData} height={200} />
+                  </HoverCardContent>
+                </HoverCard>
+              </div>
             </div>
           </div>
         </>
