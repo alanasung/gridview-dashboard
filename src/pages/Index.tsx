@@ -134,7 +134,7 @@ const Index = () => {
       {dashboardMode === "supply" && (
         <>
           {/* Charts Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             <AreaChartComponent title="SOLAR POWER" data={solarData} height={250} />
             <AreaChartComponent title="WIND POWER" data={windData} height={250} />
             <div className="space-y-2">
@@ -182,6 +182,58 @@ const Index = () => {
                         <div className="flex justify-between text-xs">
                           <span className="text-muted-foreground">Ramp rate:</span>
                           <span className="font-medium">0.5 MW/s</span>
+                        </div>
+                      </div>
+                    </div>
+                  </HoverCardContent>
+                </HoverCard>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <CircularGauge
+                title="BESS-BLDG3-FLR2"
+                value={65}
+                maxValue={100}
+                label="State of Charge"
+                subtitle="The Battery is 65% Charged"
+                metrics={[
+                  { label: "Supply of Energy", value: "2.8 MWh" },
+                  { label: "Degradation Cost", value: "$0.025/kWh" },
+                ]}
+                isAvailable={true}
+              />
+              <div className="flex gap-2">
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                      <p className="text-xs font-medium text-center text-muted-foreground">
+                        Power Limits & SOC Bounds & Ramp Rate
+                      </p>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-96 p-4" side="bottom">
+                    <div className="space-y-3">
+                      <h3 className="text-sm font-semibold text-foreground">Battery System Details</h3>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-xs">
+                          <span className="text-muted-foreground">SOC_min:</span>
+                          <span className="font-medium">20%</span>
+                        </div>
+                        <div className="flex justify-between text-xs">
+                          <span className="text-muted-foreground">SOC_max:</span>
+                          <span className="font-medium">85%</span>
+                        </div>
+                        <div className="flex justify-between text-xs">
+                          <span className="text-muted-foreground">Max charge power:</span>
+                          <span className="font-medium">4.0 MW</span>
+                        </div>
+                        <div className="flex justify-between text-xs">
+                          <span className="text-muted-foreground">Max discharge power:</span>
+                          <span className="font-medium">3.8 MW (82% of rated)</span>
+                        </div>
+                        <div className="flex justify-between text-xs">
+                          <span className="text-muted-foreground">Ramp rate:</span>
+                          <span className="font-medium">0.45 MW/s</span>
                         </div>
                       </div>
                     </div>
