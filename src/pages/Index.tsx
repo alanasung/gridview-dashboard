@@ -131,6 +131,28 @@ const Index = () => {
     }))
   );
 
+  // Load Forecast historical data
+  const [loadForecast7DaysData] = useState(() =>
+    Array.from({ length: 7 * 24 }, (_, i) => ({
+      time: `Day ${Math.floor(i / 24) + 1}`,
+      value: Math.sin(i / 10) * 150 + 350,
+    }))
+  );
+
+  const [loadForecast30DaysData] = useState(() =>
+    Array.from({ length: 30 }, (_, i) => ({
+      time: `${i + 1}`,
+      value: Math.sin(i / 5) * 150 + 350,
+    }))
+  );
+
+  const [loadForecast1YearData] = useState(() =>
+    Array.from({ length: 12 }, (_, i) => ({
+      time: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
+      value: Math.sin(i / 2) * 150 + 350,
+    }))
+  );
+
   // Demand Response state
   const [drStatus] = useState<"none" | "upcoming" | "active">("active");
   const [drTimeRemaining] = useState("1h 22m");
@@ -383,12 +405,44 @@ const Index = () => {
 
           {/* Load Forecast and LMP */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div className="md:col-span-2">
+            <div className="md:col-span-2 space-y-2">
               <AreaChartComponent
                 title="LOAD FORECAST MON VALLEY U.S. STEEL - NEXT 24 HOURS"
                 data={loadForecastData}
                 height={250}
               />
+              <div className="flex gap-2">
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                      <p className="text-xs font-medium text-center text-muted-foreground">Last 7 Days</p>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-96 p-4" side="bottom">
+                    <AreaChartComponent title="LOAD FORECAST - LAST 7 DAYS" data={loadForecast7DaysData} height={200} />
+                  </HoverCardContent>
+                </HoverCard>
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                      <p className="text-xs font-medium text-center text-muted-foreground">Last 30 Days</p>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-96 p-4" side="bottom">
+                    <AreaChartComponent title="LOAD FORECAST - LAST 30 DAYS" data={loadForecast30DaysData} height={200} />
+                  </HoverCardContent>
+                </HoverCard>
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <Card className="flex-1 p-2 cursor-pointer hover:bg-accent/50 transition-colors">
+                      <p className="text-xs font-medium text-center text-muted-foreground">Last 1 Year</p>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-96 p-4" side="bottom">
+                    <AreaChartComponent title="LOAD FORECAST - LAST 1 YEAR" data={loadForecast1YearData} height={200} />
+                  </HoverCardContent>
+                </HoverCard>
+              </div>
             </div>
           </div>
 
