@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Cloud } from "lucide-react";
-import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
+import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip, ReferenceLine } from "recharts";
 
 interface WeatherWidgetProps {
   title: string;
@@ -17,7 +17,6 @@ const generateTodayData = (currentTemp: number) => {
     return {
       time: `${hour.toString().padStart(2, '0')}:00`,
       temperature: Math.round(temp * 10) / 10,
-      rain: Math.max(0, Math.min(100, 20 + Math.sin((i - 10) / 3) * 30 + (Math.random() - 0.5) * 20))
     };
   });
   return hours;
@@ -25,6 +24,8 @@ const generateTodayData = (currentTemp: number) => {
 
 export const WeatherWidget = ({ title, temperature, condition, rain }: WeatherWidgetProps) => {
   const todayData = generateTodayData(temperature);
+  const currentHour = new Date().getHours();
+  const currentTime = `${currentHour.toString().padStart(2, '0')}:00`;
   
   return (
     <Card className="p-6 border-border bg-card">
@@ -39,9 +40,9 @@ export const WeatherWidget = ({ title, temperature, condition, rain }: WeatherWi
       </div>
 
       {/* Temperature Graph */}
-      <div className="mb-6">
+      <div>
         <p className="text-xs text-muted-foreground mb-2">Temperature Today</p>
-        <ResponsiveContainer width="100%" height={120}>
+        <ResponsiveContainer width="100%" height={160}>
           <AreaChart data={todayData}>
             <defs>
               <linearGradient id="tempGradient" x1="0" y1="0" x2="0" y2="1">
@@ -74,60 +75,24 @@ export const WeatherWidget = ({ title, temperature, condition, rain }: WeatherWi
               }}
               formatter={(value: number) => [`${value.toFixed(1)}°C`, 'Temp']}
             />
+            <ReferenceLine 
+              x={currentTime} 
+              stroke="hsl(var(--primary))" 
+              strokeWidth={2}
+              strokeDasharray="3 3"
+              label={{ 
+                value: 'Now', 
+                position: 'top',
+                fill: 'hsl(var(--primary))',
+                fontSize: 10
+              }}
+            />
             <Area 
               type="monotone" 
               dataKey="temperature" 
               stroke="hsl(var(--chart-1))" 
               fillOpacity={1} 
               fill="url(#tempGradient)"
-              strokeWidth={2}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-
-      {/* Rain Probability Graph */}
-      <div>
-        <p className="text-xs text-muted-foreground mb-2">Rain Probability Today</p>
-        <ResponsiveContainer width="100%" height={120}>
-          <AreaChart data={todayData}>
-            <defs>
-              <linearGradient id="rainGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--chart-3))" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="hsl(var(--chart-3))" stopOpacity={0.1}/>
-              </linearGradient>
-            </defs>
-            <XAxis 
-              dataKey="time" 
-              stroke="hsl(var(--muted-foreground))" 
-              fontSize={10}
-              tickLine={false}
-              axisLine={false}
-              interval={3}
-            />
-            <YAxis 
-              stroke="hsl(var(--muted-foreground))" 
-              fontSize={10}
-              tickLine={false}
-              axisLine={false}
-              width={35}
-              domain={[0, 100]}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "hsl(var(--card))",
-                border: "1px solid hsl(var(--border))",
-                borderRadius: "8px",
-                fontSize: "12px"
-              }}
-              formatter={(value: number) => [`${value.toFixed(0)}%`, 'Rain']}
-            />
-            <Area 
-              type="monotone" 
-              dataKey="rain" 
-              stroke="hsl(var(--chart-3))" 
-              fillOpacity={1} 
-              fill="url(#rainGradient)"
               strokeWidth={2}
             />
           </AreaChart>
