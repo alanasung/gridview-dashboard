@@ -169,10 +169,9 @@ const Index = () => {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold">
-          <span className="text-foreground">GRID</span>
-          <span className="text-primary">ENERGY</span>
+          <span className="text-foreground">R.E.</span>
+          <span className="text-primary">M.O.S.</span>
         </h1>
-        <p className="text-sm text-muted-foreground mt-1">CTPARK BUILDING - AMSTERDAM</p>
       </div>
 
       {/* Main Grid */}
