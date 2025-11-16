@@ -10,13 +10,13 @@ import { useEffect, useState } from "react";
 const Index = () => {
   const [greenFactor, setGreenFactor] = useState(18);
   const [batteryLevel, setBatteryLevel] = useState(80);
-  const [dashboardMode, setDashboardMode] = useState<'supply' | 'demand'>('supply');
+  const [dashboardMode, setDashboardMode] = useState<"supply" | "demand">("supply");
 
   // Simulate live data updates
   useEffect(() => {
     const interval = setInterval(() => {
-      setGreenFactor(prev => Math.min(100, Math.max(0, prev + (Math.random() - 0.5) * 2)));
-      setBatteryLevel(prev => Math.min(100, Math.max(0, prev + (Math.random() - 0.5) * 2)));
+      setGreenFactor((prev) => Math.min(100, Math.max(0, prev + (Math.random() - 0.5) * 2)));
+      setBatteryLevel((prev) => Math.min(100, Math.max(0, prev + (Math.random() - 0.5) * 2)));
     }, 3000);
     return () => clearInterval(interval);
   }, []);
@@ -66,20 +66,12 @@ const Index = () => {
       </div>
 
       {/* Supply Dashboard */}
-      {dashboardMode === 'supply' && (
+      {dashboardMode === "supply" && (
         <>
           {/* Charts Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-            <AreaChartComponent
-              title="SOLAR POWER"
-              data={solarData}
-              height={250}
-            />
-            <AreaChartComponent
-              title="WIND POWER"
-              data={windData}
-              height={250}
-            />
+            <AreaChartComponent title="SOLAR POWER" data={solarData} height={250} />
+            <AreaChartComponent title="WIND POWER" data={windData} height={250} />
             <CircularGauge
               title="TOTAL BATTERY"
               value={Math.round(batteryLevel)}
@@ -93,7 +85,7 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="md:col-span-2">
               <AreaChartComponent
-                title="LOAD FORECAST - NEXT 24 HOURS"
+                title="LOAD FORECAST MON VALLEY U.S. STEEL - NEXT 24 HOURS"
                 data={loadForecastData}
                 height={250}
               />
@@ -103,7 +95,7 @@ const Index = () => {
       )}
 
       {/* Demand Dashboard */}
-      {dashboardMode === 'demand' && (
+      {dashboardMode === "demand" && (
         <>
           {/* Energy Breakdown and Water */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
@@ -139,16 +131,16 @@ const Index = () => {
 
       {/* Dashboard Toggle Button */}
       <button
-        onClick={() => setDashboardMode(prev => prev === 'supply' ? 'demand' : 'supply')}
+        onClick={() => setDashboardMode((prev) => (prev === "supply" ? "demand" : "supply"))}
         className="fixed bottom-6 right-6 w-10 h-10 rounded-full bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground text-xs font-mono transition-all duration-200 border border-border/50"
-        aria-label={`Switch to ${dashboardMode === 'supply' ? 'demand' : 'supply'} dashboard`}
+        aria-label={`Switch to ${dashboardMode === "supply" ? "demand" : "supply"} dashboard`}
       >
-        {dashboardMode === 'supply' ? 'D' : 'S'}
+        {dashboardMode === "supply" ? "D" : "S"}
       </button>
 
       {/* Footer */}
       <p className="text-xs text-muted-foreground text-right mt-8">
-        Last updated: {new Date().toLocaleString('en-US')}
+        Last updated: {new Date().toLocaleString("en-US")}
       </p>
     </div>
   );
