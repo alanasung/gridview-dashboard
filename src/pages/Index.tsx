@@ -16,11 +16,11 @@ const Index = () => {
   const [batteryLevel, setBatteryLevel] = useState(80);
   const [dashboardMode, setDashboardMode] = useState<"supply" | "demand">("supply");
   const [currentHour] = useState(new Date().getHours());
-  const [lmpData, setLmpData] = useState(() => 
+  const [lmpData, setLmpData] = useState(() =>
     Array.from({ length: 42 }, (_, i) => ({
       time: `${i}:00`,
       value: Math.sin(i / 4) * 15 + 40 + Math.random() * 5, // Smoother pattern $25-$60 range
-    }))
+    })),
   );
 
   // Simulate live data updates
@@ -28,7 +28,7 @@ const Index = () => {
     const interval = setInterval(() => {
       setGreenFactor((prev) => Math.min(100, Math.max(0, prev + (Math.random() - 0.5) * 2)));
       setBatteryLevel((prev) => Math.min(100, Math.max(0, prev + (Math.random() - 0.5) * 2)));
-      
+
       // Update LMP data dynamically - subtle changes
       setLmpData((prev) => {
         const newData = [...prev];
@@ -76,25 +76,25 @@ const Index = () => {
     value: Math.sin(i / 6) * 5 + 15,
   }));
 
-  const [lmp7DaysData] = useState(() => 
+  const [lmp7DaysData] = useState(() =>
     Array.from({ length: 7 * 24 }, (_, i) => ({
       time: `Day ${Math.floor(i / 24) + 1}`,
       value: Math.sin(i / 12) * 15 + 40,
-    }))
+    })),
   );
 
   const [lmp30DaysData] = useState(() =>
     Array.from({ length: 30 }, (_, i) => ({
       time: `${i + 1}`,
       value: Math.sin(i / 5) * 15 + 40,
-    }))
+    })),
   );
 
   const [lmp1YearData] = useState(() =>
     Array.from({ length: 12 }, (_, i) => ({
-      time: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
+      time: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][i],
       value: Math.sin(i / 2) * 15 + 40,
-    }))
+    })),
   );
 
   // Solar Power historical data
@@ -103,7 +103,7 @@ const Index = () => {
       time: `Day ${Math.floor(i / 24) + 1}`,
       value: Math.sin(i / 12) * 2000 + 1500,
       value2: Math.sin(i / 12) * 1500 + 1000,
-    }))
+    })),
   );
 
   const [solar30DaysData] = useState(() =>
@@ -111,7 +111,7 @@ const Index = () => {
       time: `Day ${Math.floor(i / 24) + 1}`,
       value: Math.sin(i / 24) * 2000 + 1500,
       value2: Math.sin(i / 24) * 1500 + 1000,
-    }))
+    })),
   );
 
   // Wind Power historical data
@@ -120,7 +120,7 @@ const Index = () => {
       time: `Day ${Math.floor(i / 24) + 1}`,
       value: Math.sin(i / 14) * 1800 + 1200,
       value2: Math.sin(i / 14) * 1300 + 900,
-    }))
+    })),
   );
 
   const [wind30DaysData] = useState(() =>
@@ -128,7 +128,7 @@ const Index = () => {
       time: `Day ${Math.floor(i / 24) + 1}`,
       value: Math.sin(i / 28) * 1800 + 1200,
       value2: Math.sin(i / 28) * 1300 + 900,
-    }))
+    })),
   );
 
   // Load Forecast historical data
@@ -136,21 +136,21 @@ const Index = () => {
     Array.from({ length: 7 * 24 }, (_, i) => ({
       time: `Day ${Math.floor(i / 24) + 1}`,
       value: Math.sin(i / 10) * 150 + 350,
-    }))
+    })),
   );
 
   const [loadForecast30DaysData] = useState(() =>
     Array.from({ length: 30 }, (_, i) => ({
       time: `${i + 1}`,
       value: Math.sin(i / 5) * 150 + 350,
-    }))
+    })),
   );
 
   const [loadForecast1YearData] = useState(() =>
     Array.from({ length: 12 }, (_, i) => ({
-      time: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
+      time: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][i],
       value: Math.sin(i / 2) * 150 + 350,
-    }))
+    })),
   );
 
   // Demand Response state
@@ -177,7 +177,9 @@ const Index = () => {
 
       {/* Main Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <div className="md:col-span-2 lg:col-span-1"><DateTimeWidget /></div>
+        <div className="md:col-span-2 lg:col-span-1">
+          <DateTimeWidget />
+        </div>
         <div className="space-y-2">
           <WeatherWidget title="WEATHER TODAY" temperature={5} condition="65 KM/H E" rain={55} />
           <div className="flex gap-2">
@@ -429,7 +431,11 @@ const Index = () => {
                     </Card>
                   </HoverCardTrigger>
                   <HoverCardContent className="w-96 p-4" side="bottom">
-                    <AreaChartComponent title="LOAD FORECAST - LAST 30 DAYS" data={loadForecast30DaysData} height={200} />
+                    <AreaChartComponent
+                      title="LOAD FORECAST - LAST 30 DAYS"
+                      data={loadForecast30DaysData}
+                      height={200}
+                    />
                   </HoverCardContent>
                 </HoverCard>
                 <HoverCard openDelay={200}>
@@ -500,17 +506,16 @@ const Index = () => {
                   <h3 className="text-lg font-semibold">Demand Response</h3>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div 
+                  <div
                     className={`w-3 h-3 rounded-full ${
-                      drStatus === "active" ? "bg-destructive animate-pulse" :
-                      drStatus === "upcoming" ? "bg-yellow-500 animate-pulse" :
-                      "bg-primary"
-                    }`} 
+                      drStatus === "active"
+                        ? "bg-destructive animate-pulse"
+                        : drStatus === "upcoming"
+                          ? "bg-yellow-500 animate-pulse"
+                          : "bg-primary"
+                    }`}
                   />
-                  <Badge 
-                    variant={drStatus === "active" ? "destructive" : "secondary"}
-                    className="font-semibold"
-                  >
+                  <Badge variant={drStatus === "active" ? "destructive" : "secondary"} className="font-semibold">
                     {drStatus === "active" ? "ACTIVE" : drStatus === "upcoming" ? "UPCOMING" : "NO EVENT"}
                   </Badge>
                 </div>
@@ -602,11 +607,7 @@ const Index = () => {
 
       {/* Demand Dashboard */}
       {dashboardMode === "demand" && (
-        
-          {/* Energy Breakdown and Water */}
-          
-            
-
+        <>
           {/* Industrial Load & Load Split */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             <HoverCard openDelay={200}>
@@ -627,11 +628,7 @@ const Index = () => {
                 </div>
               </HoverCardTrigger>
               <HoverCardContent className="w-96 p-4" side="bottom">
-                <AreaChartComponent 
-                  title="LOAD FORECAST (24H)" 
-                  data={loadForecastData} 
-                  height={200} 
-                />
+                <AreaChartComponent title="LOAD FORECAST (24H)" data={loadForecastData} height={200} />
               </HoverCardContent>
             </HoverCard>
 
@@ -646,22 +643,22 @@ const Index = () => {
                         <span className="text-sm font-bold text-destructive">5.2 MW (62%)</span>
                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
-                        <div className="bg-destructive h-2 rounded-full" style={{ width: '62%' }} />
+                        <div className="bg-destructive h-2 rounded-full" style={{ width: "62%" }} />
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-xs text-muted-foreground">Flexible Load</span>
                         <span className="text-sm font-bold text-primary">3.2 MW (38%)</span>
                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
-                        <div className="bg-primary h-2 rounded-full" style={{ width: '38%' }} />
+                        <div className="bg-primary h-2 rounded-full" style={{ width: "38%" }} />
                       </div>
                     </div>
                   </Card>
                 </div>
               </HoverCardTrigger>
               <HoverCardContent className="w-96 p-4" side="bottom">
-                <BarChartComponent 
-                  title="CRITICAL VS FLEXIBLE (24H)" 
+                <BarChartComponent
+                  title="CRITICAL VS FLEXIBLE (24H)"
                   data={Array.from({ length: 24 }, (_, i) => ({
                     time: `${i}:00`,
                     value: Math.sin(i / 3.5) * 90 + 220,
@@ -699,8 +696,8 @@ const Index = () => {
                 </div>
               </HoverCardTrigger>
               <HoverCardContent className="w-96 p-4" side="bottom">
-                <BarChartComponent 
-                  title="PRODUCTION LEVEL BY HOUR" 
+                <BarChartComponent
+                  title="PRODUCTION LEVEL BY HOUR"
                   data={Array.from({ length: 24 }, (_, i) => ({
                     time: `${i}:00`,
                     value: i >= 6 && i <= 14 ? 85 : i >= 14 && i <= 22 ? 75 : 30,
@@ -738,8 +735,8 @@ const Index = () => {
                 </div>
               </HoverCardTrigger>
               <HoverCardContent className="w-96 p-4" side="bottom">
-                <AreaChartComponent 
-                  title="ENERGY SOURCE MIX (24H)" 
+                <AreaChartComponent
+                  title="ENERGY SOURCE MIX (24H)"
                   data={Array.from({ length: 24 }, (_, i) => ({
                     time: `${i}:00`,
                     value: Math.sin(i / 3.8) * 150 + 200,
@@ -783,8 +780,8 @@ const Index = () => {
                 </div>
               </HoverCardTrigger>
               <HoverCardContent className="w-96 p-4" side="bottom">
-                <AreaChartComponent 
-                  title="DR EVENT TIMELINE" 
+                <AreaChartComponent
+                  title="DR EVENT TIMELINE"
                   data={Array.from({ length: 24 }, (_, i) => ({
                     time: `${i}:00`,
                     value: i >= 14 && i <= 18 ? 350 - 25 : 350,
@@ -822,8 +819,8 @@ const Index = () => {
                 </div>
               </HoverCardTrigger>
               <HoverCardContent className="w-96 p-4" side="bottom">
-                <AreaChartComponent 
-                  title="CHARGE/DISCHARGE POWER (24H)" 
+                <AreaChartComponent
+                  title="CHARGE/DISCHARGE POWER (24H)"
                   data={Array.from({ length: 24 }, (_, i) => ({
                     time: `${i}:00`,
                     value: Math.sin(i / 3.8) * 60 + 70,
@@ -852,8 +849,8 @@ const Index = () => {
                 </div>
               </HoverCardTrigger>
               <HoverCardContent className="w-96 p-4" side="bottom">
-                <AreaChartComponent 
-                  title="BATTERY SOC HISTORY (24H)" 
+                <AreaChartComponent
+                  title="BATTERY SOC HISTORY (24H)"
                   data={Array.from({ length: 24 }, (_, i) => ({
                     time: `${i}:00`,
                     value: Math.sin(i / 4) * 20 + 70,
@@ -891,11 +888,11 @@ const Index = () => {
                 </div>
               </HoverCardTrigger>
               <HoverCardContent className="w-96 p-4" side="bottom">
-                <AreaChartComponent 
-                  title="BATTERY DEGRADATION TREND" 
+                <AreaChartComponent
+                  title="BATTERY DEGRADATION TREND"
                   data={Array.from({ length: 12 }, (_, i) => ({
-                    time: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
-                    value: 100 - (i * 0.3),
+                    time: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][i],
+                    value: 100 - i * 0.3,
                     value2: 0,
                   }))}
                   height={200}
@@ -933,8 +930,8 @@ const Index = () => {
                 </div>
               </HoverCardTrigger>
               <HoverCardContent className="w-96 p-4" side="bottom">
-                <BarChartComponent 
-                  title="TOU RATES BY HOUR" 
+                <BarChartComponent
+                  title="TOU RATES BY HOUR"
                   data={Array.from({ length: 24 }, (_, i) => ({
                     time: `${i}:00`,
                     value: i >= 16 && i <= 21 ? 0.245 : i >= 9 && i <= 16 ? 0.145 : 0.089,
@@ -972,10 +969,10 @@ const Index = () => {
                 </div>
               </HoverCardTrigger>
               <HoverCardContent className="w-96 p-4" side="bottom">
-                <BarChartComponent 
-                  title="MONTHLY DR PAYMENTS" 
+                <BarChartComponent
+                  title="MONTHLY DR PAYMENTS"
                   data={Array.from({ length: 12 }, (_, i) => ({
-                    time: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
+                    time: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][i],
                     value: Math.sin(i / 2) * 5000 + 15000,
                     value2: 0,
                   }))}
@@ -1011,8 +1008,8 @@ const Index = () => {
                 </div>
               </HoverCardTrigger>
               <HoverCardContent className="w-96 p-4" side="bottom">
-                <AreaChartComponent 
-                  title="EQUIPMENT PERFORMANCE (24H)" 
+                <AreaChartComponent
+                  title="EQUIPMENT PERFORMANCE (24H)"
                   data={Array.from({ length: 24 }, (_, i) => ({
                     time: `${i}:00`,
                     value: Math.sin(i / 4) * 10 + 40,
@@ -1050,8 +1047,8 @@ const Index = () => {
                 </div>
               </HoverCardTrigger>
               <HoverCardContent className="w-96 p-4" side="bottom">
-                <BarChartComponent 
-                  title="DAILY COST SAVINGS" 
+                <BarChartComponent
+                  title="DAILY COST SAVINGS"
                   data={Array.from({ length: 7 }, (_, i) => ({
                     time: `Day ${i + 1}`,
                     value: Math.sin(i / 2) * 2000 + 6000,
@@ -1094,8 +1091,8 @@ const Index = () => {
                 </Card>
               </HoverCardTrigger>
               <HoverCardContent className="w-[600px] p-4" side="bottom">
-                <AreaChartComponent 
-                  title="ENERGY CONSUMPTION TIMELINE & PEAK FORECAST" 
+                <AreaChartComponent
+                  title="ENERGY CONSUMPTION TIMELINE & PEAK FORECAST"
                   data={Array.from({ length: 48 }, (_, i) => ({
                     time: `${i}:00`,
                     value: Math.sin(i / 4) * 100 + 350,
@@ -1138,8 +1135,8 @@ const Index = () => {
                 </Card>
               </HoverCardTrigger>
               <HoverCardContent className="w-[600px] p-4" side="bottom">
-                <AreaChartComponent 
-                  title="DR EVENT: BASELINE VS ACTUAL LOAD" 
+                <AreaChartComponent
+                  title="DR EVENT: BASELINE VS ACTUAL LOAD"
                   data={Array.from({ length: 24 }, (_, i) => ({
                     time: `${i}:00`,
                     value: i >= 14 && i <= 18 ? 350 : 370,
